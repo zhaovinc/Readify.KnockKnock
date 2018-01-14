@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Mappers\**" />
+    <Compile Remove="NancyPipelines\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Mappers\**" />
+    <Content Remove="NancyPipelines\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Mappers\**" />
+    <EmbeddedResource Remove="NancyPipelines\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Mappers\**" />
+    <None Remove="NancyPipelines\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
+    <PackageReference Include="automapper" Version="6.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Nancy.Authentication.Stateless" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Nancy.Bootstrappers.Autofac" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Nancy.Serialization.JsonNet" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Serilog" Version="2.5.1-dev-00873" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.4.0" />
+    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="5.3.0" />
+    <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.1-dev-00044" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Readify.KnockKnock.Api\Readify.KnockKnock.Api.csproj" />
+  </ItemGroup>
+</Project>

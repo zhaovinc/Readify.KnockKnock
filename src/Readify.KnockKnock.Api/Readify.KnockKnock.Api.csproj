@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NancyPipelines\**" />
+    <EmbeddedResource Remove="NancyPipelines\**" />
+    <None Remove="NancyPipelines\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
+    <PackageReference Include="automapper" Version="6.1.1" />
+    <PackageReference Include="cachemanager.core" Version="1.1.1" />
+    <PackageReference Include="nancy" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="NetStandard.Library" Version="2.0.1" />
+    <PackageReference Include="serilog" Version="2.5.1-dev-00873" />
+  </ItemGroup>
+
+</Project>

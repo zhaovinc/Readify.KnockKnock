@@ -1,0 +1,302 @@
+swagger: '2.0'
+info:
+  version: 0.0.2
+  title: Certificate Package API
+  description: API for add/update/delete Certificate Packages
+host: localdev.globalx.com.au
+basePath: /api/certificatepackages
+paths:
+  /packages:
+    post:
+      summary: Create a new `CertificatePackage`
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/hal+json
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/CertificatePackageResponse'
+        '400':
+          description: The request contains invalid body or validation error
+          schema:
+            $ref: '#/definitions/CertificatePackageError'
+        '409':
+          description: The package with the same name for the same State, Council, and Acting For already exists
+          schema:
+            $ref: '#/definitions/CertificatePackageError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/CertificatePackageError'
+      parameters:
+        - in: body
+          name: body
+          description: The certificate package to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CertificatePackage'
+    get:
+      summary: Get available packages within a firm.
+      produces:
+        - application/hal+json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PaginatedCertificatePackagesResponse'
+      parameters:
+        - in: query
+          name: pageNumber
+          description: Start of the page to get the list of certificate packages
+          type: integer
+          required: false
+          default: 1
+          minimum: 1
+        - in: query
+          name: pageSize
+          description: Number of rows in a page to get the list of certificate packages
+          type: integer
+          required: false
+          default: 100     
+          minimum: 1
+          maximum: 500
+        - in: query
+          name: state
+          description: Name of the State entered to get the list of certificate packages
+          type: string
+          enum:
+             - ACT
+             - NSW
+             - VIC
+             - QLD
+             - SA
+             - WA
+             - TAS
+             - NT
+          required: false
+        - in: query
+          name: council
+          description: Name of the Council entered to get the list of certificate packages
+          type: string
+          required: false
+        - in: query
+          name: actingFor
+          description: Value of Acting For entered to get the list of certificate packages
+          type: string
+          enum:
+             - Vendor
+             - ActingFor
+          required: false
+  /packages/{id}:
+    get:
+      summary: Retrieve a certificate package
+      produces:
+        - application/hal+json
+      parameters:
+        - in: path
+          name: id
+          description: Certificate package Id
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: The certificate package of the given id is returned
+          schema:
+            $ref: '#/definitions/CertificatePackageResponse'
+        '403':
+          description: Cannot access the package of the given id due to permission error
+        '404':
+          description: No certificate package of the given Id exists
+    put:
+      summary: Update a certificate package
+      produces:
+       - application/hal+json
+      responses:
+        '200':
+          description: Successfully updated the certificate package
+          schema:
+            $ref: '#/definitions/CertificatePackageResponse'
+        '400':
+          description: The request contains invalid body or validation error
+          schema:
+           $ref: '#/definitions/CertificatePackageError'
+        '404':
+          description: The request package id does not exist
+          schema:
+           $ref: '#/definitions/CertificatePackageError'
+        '409':
+          description: The package with the same name for the same State, Council, and Acting For already exists
+          schema:
+            $ref: '#/definitions/CertificatePackageError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/CertificatePackageError'
+      parameters:
+        - in: path
+          name: id
+          description: Certificate package Id
+          required: true
+          type: integer
+        - in: body
+          name: body
+          description: The certificate package to be created
+          required: true
+          schema:
+            $ref: '#/definitions/CertificatePackage'
+    delete:
+      summary: Deletes a certificate package within a firm.
+      responses:
+        '204':
+          description: OK
+        '403':
+          description: Package exists but it belongs to a different firm
+        '404':
+          description: No certificate package of the given Id exists
+      parameters:
+        - in: path
+          name: id
+          description: Id of the certificate package to be deleted
+          type: integer
+          required: true
+          default: 1
+          minimum: 1
+definitions:
+  CertificatePackage:
+    type: object
+    properties:
+      state:
+        type: string
+        example: QLD
+        enum:
+          - ACT
+          - NSW
+          - VIC
+          - QLD
+          - SA
+          - WA
+          - TAS
+          - NT
+      council:
+        type: string
+        example: Brisbane City Council
+        description: the council or state authority
+      name:
+        type: string
+        example: Regular Package
+      actingFor:
+        type: string
+        example: Vendor
+      certificates:
+        type: array
+        items:
+          $ref: '#/definitions/Certificate'
+    required:
+      - state
+      - council
+      - name
+      - actingFor
+      - certificates
+  Certificate:
+    type: object
+    properties:
+      searchType:
+        type: string
+        example: NSWSYD0001SearchType
+        description: the offering order type of the certificate
+      name:
+        type: string
+        example: NSW Sydney Water
+        description: the name of the certificate
+    required:
+      - searchType
+      - name
+  CertificatePackageResponse:
+    type: object
+    properties:
+      _links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/Href'
+      state:
+        type: string
+        example: QLD
+        enum:
+          - ACT
+          - NSW
+          - VIC
+          - QLD
+          - SA
+          - WA
+          - TAS
+          - NT
+      authority:
+        type: string
+        example: Brisbane City Council
+        description: the council or state authority
+      id:
+        type: integer
+        example: 1234
+      name:
+        type: string
+        example: Regular Package
+      actingFor:
+        type: string
+        example: Vendor
+      certificates:
+        type: array
+        items:
+          $ref: '#/definitions/Certificate'
+  Href:
+    type: object
+    properties:
+      href:
+        type: string
+        format: url
+        example: /certificatepackages/1234
+  CertificatePackageError:
+    type: object
+    properties:
+      #code:
+      #  type: string
+      #  enum:
+      #    - CP01
+      #    - CP02
+      #    - CP03
+      #  description: |
+      #    Rejection code:
+      #      * CP01 - The Certificate Package with the same name already exists
+      #      * CP02 - Unknown authority
+      #      * CP03 - Invalid actingFor
+      message:
+        type: string
+        example: "Invalid Acting For: Acting For must be either Vendor or Purchaser."
+      #additionalDetails:
+      #  type: string
+      #  example: the authority East End doesn't exist in state QLD
+  PaginatedCertificatePackagesResponse:
+    type: object
+    properties:
+      _links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/Href'
+      pageNumber:
+        type: integer
+        example: 1
+      pageSize:
+        type: integer
+        example: 100
+      totalPages:
+        type: integer
+        description: Total of pages of the available certificate packages within the firm
+        example: 5
+      packages:
+        type: array
+        items: 
+          $ref: '#/definitions/CertificatePackageResponse'
