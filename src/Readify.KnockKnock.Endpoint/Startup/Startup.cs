@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nancy.Owin;
 using Newtonsoft.Json;
+using Readify.KnockKnock.Api.Services;
 using Serilog;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
@@ -37,6 +38,9 @@ namespace Readify.KnockKnock.Endpoint.Startup
             services.AddLogging(loggingBuilder =>
                 loggingBuilder.AddSerilog(dispose: true));
             services.AddTransient<JsonSerializer, CustomJsonSerializer>();
+            services.AddTransient<IFibonacciService, FibonacciService>();
+            services.AddTransient<IReverseWordsService, ReverseWordsService>();
+            
             services.AddMemoryCache();
 
             var builder = new ContainerBuilder();

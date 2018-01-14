@@ -5,16 +5,29 @@ using System.Text;
 
 namespace Readify.KnockKnock.Api.Services
 {
-    public class FibonacciService
+    public class FibonacciService : IFibonacciService
     {
         public long GetNth(long n)
         {
-            if (n <= 1)
+            if (n <= 0)
+            {
+                throw new ApplicationException("Invalid Value");
+            }
+
+            if (n == 1 || n == 2)
             {
                 return 1;
             }
 
-            return GetNth(n - 1) + GetNth(n - 2);
+            long x = 1, y = 1;
+            for (long i = 3; i <= n; i++)
+            {
+                // will throw OverFlowException if it's too big
+                y = checked(x + y);
+                x = y - x;
+            }
+
+            return y;
         }
     }
 }

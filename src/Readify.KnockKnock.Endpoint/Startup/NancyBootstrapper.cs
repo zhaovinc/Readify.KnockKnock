@@ -25,10 +25,5 @@ namespace Readify.KnockKnock.Endpoint.Startup
         {
             return _container;
         }
-
-        protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)
-        {
-            base.ApplicationStartup(container, pipelines);
-        }
     }
 }
