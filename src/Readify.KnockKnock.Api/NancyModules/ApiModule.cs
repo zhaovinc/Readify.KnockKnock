@@ -57,7 +57,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             {
                 return Response.AsJson(new ErrorMessage
                 {
-                    Message = "The result is too big"
+                    Message = "Please provide a valid integer"
                 }).WithStatusCode(HttpStatusCode.BadRequest);
             }
 
@@ -79,7 +79,7 @@ namespace Readify.KnockKnock.Api.NancyModules
                 }).WithStatusCode(HttpStatusCode.BadRequest);
             }
 
-            var result = _reverseWordsService.Reverse(request.Sentense);
+            var result = _reverseWordsService.Reverse(request.Sentence);
             return new TextResponse(result);
         }
 

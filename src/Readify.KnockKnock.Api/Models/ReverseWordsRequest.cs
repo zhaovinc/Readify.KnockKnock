@@ -6,6 +6,6 @@ namespace Readify.KnockKnock.Api.Models
 {
     public class ReverseWordsRequest
     {
-        public string Sentense { get; set; }
+        public string Sentence { get; set; }
     }
 }
