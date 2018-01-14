@@ -15,7 +15,8 @@ namespace Readify.KnockKnock.Tests
         {
             _subject = new FibonacciService();
         }
-        
+
+        [TestCase(0, ExpectedResult = 0)]
         [TestCase(1, ExpectedResult = 1)]
         [TestCase(2, ExpectedResult = 1)]
         [TestCase(3, ExpectedResult = 2)]
@@ -27,7 +28,6 @@ namespace Readify.KnockKnock.Tests
             return _subject.GetNth(n);
         }
 
-        [TestCase(0)]
         [TestCase(-1)]
         public void TestInvalidValue(long n)
         {

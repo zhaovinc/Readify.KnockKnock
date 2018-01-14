@@ -9,9 +9,15 @@ namespace Readify.KnockKnock.Api.Services
     {
         public long GetNth(long n)
         {
-            if (n <= 0)
+            if (n < 0)
             {
                 throw new ApplicationException("Invalid Value");
+            }
+
+            if (n == 0)
+            {
+                // defined in swagger but it's very confusing....
+                return 0;
             }
 
             if (n == 1 || n == 2)

@@ -18,11 +18,11 @@ namespace Readify.KnockKnock.Tests
             _subject = new ReverseWordsService();
         }
 
-        [TestCase("quicktest", ExpectedResult = "quicktest")]
-        [TestCase("a b", ExpectedResult = "b a")]
-        [TestCase("the quick brown fox", ExpectedResult = "fox brown quick the")]
-        [TestCase("the    quick brown        fox", ExpectedResult = "fox brown quick the")]
-        [TestCase("33()(){}{}[][]bbbb", ExpectedResult = "33()(){}{}[][]bbbb")]
+        [TestCase("quicktest", ExpectedResult = "tsetkciuq")]
+        [TestCase("a b", ExpectedResult = "a b")]
+        [TestCase("the quick brown fox", ExpectedResult = "eht kciuq nworb xof")]
+        [TestCase("the    quick brown        fox", ExpectedResult = "eht kciuq nworb xof")]
+        [TestCase("33()(){}{}[][]bbbb", ExpectedResult = "bbbb][][}{}{)()(33")]
         public string TestService(string sentense)
         {
             return _subject.Reverse(sentense);

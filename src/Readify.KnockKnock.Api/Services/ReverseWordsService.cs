@@ -9,7 +9,8 @@ namespace Readify.KnockKnock.Api.Services
     {
         public string Reverse(string sentense)
         {
-            var reversedWords = System.Text.RegularExpressions.Regex.Split(sentense, @"\s+").Reverse();
+            var words = System.Text.RegularExpressions.Regex.Split(sentense, @"\s+");
+            var reversedWords = words.Select(x => new string(x.Reverse().ToArray()));
             var result = String.Join(' ', reversedWords);
             return result;
         }

@@ -73,10 +73,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (ModelBindingException)
             {
-                return Response.AsJson(new ErrorMessage
-                {
-                    Message = "Please provide a sentense"
-                }).WithStatusCode(HttpStatusCode.BadRequest);
+                return new TextResponse("");
             }
 
             var result = _reverseWordsService.Reverse(request.Sentence);
@@ -92,10 +89,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (ModelBindingException)
             {
-                return Response.AsJson(new ErrorMessage
-                {
-                    Message = "Please provide valid triangle length"
-                }).WithStatusCode(HttpStatusCode.BadRequest);
+                return new TextResponse("Error");
             }
 
             TriangleType result;
@@ -105,10 +99,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (InvalidTriangleException)
             {
-                return Response.AsJson(new ErrorMessage
-                {
-                    Message = "Please provide valid triangle length"
-                }).WithStatusCode(HttpStatusCode.BadRequest);
+                return new TextResponse("Error");
             }
             
             return new TextResponse(result.ToString("G"));
