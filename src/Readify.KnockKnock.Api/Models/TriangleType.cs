@@ -4,6 +4,7 @@
     {
         Scalene,
         Isosceles,
+        IsoscelesRight,
         Equilateral,
         Right
     }

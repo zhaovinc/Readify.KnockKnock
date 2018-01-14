@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Transactions;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +41,8 @@ namespace Readify.KnockKnock.Endpoint.Startup
             services.AddTransient<JsonSerializer, CustomJsonSerializer>();
             services.AddTransient<IFibonacciService, FibonacciService>();
             services.AddTransient<IReverseWordsService, ReverseWordsService>();
-            
+            services.AddTransient<ITriangleTypeService, TriangleTypeService>();
+
             services.AddMemoryCache();
 
             var builder = new ContainerBuilder();
