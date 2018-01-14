@@ -42,7 +42,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (ModelBindingException)
             {
-                return Negotiate.WithModel(new ErrorMessage
+                return Response.AsJson(new ErrorMessage
                 {
                     Message = "Please provide a valid integer"
                 }).WithStatusCode(HttpStatusCode.BadRequest);
@@ -55,7 +55,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (Exception)
             {
-                return Negotiate.WithModel(new ErrorMessage
+                return Response.AsJson(new ErrorMessage
                 {
                     Message = "The result is too big"
                 }).WithStatusCode(HttpStatusCode.BadRequest);
@@ -73,7 +73,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (ModelBindingException)
             {
-                return Negotiate.WithModel(new ErrorMessage
+                return Response.AsJson(new ErrorMessage
                 {
                     Message = "Please provide a sentense"
                 }).WithStatusCode(HttpStatusCode.BadRequest);
@@ -92,7 +92,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (ModelBindingException)
             {
-                return Negotiate.WithModel(new ErrorMessage
+                return Response.AsJson(new ErrorMessage
                 {
                     Message = "Please provide valid triangle length"
                 }).WithStatusCode(HttpStatusCode.BadRequest);
@@ -105,7 +105,7 @@ namespace Readify.KnockKnock.Api.NancyModules
             }
             catch (InvalidTriangleException)
             {
-                return Negotiate.WithModel(new ErrorMessage
+                return Response.AsJson(new ErrorMessage
                 {
                     Message = "Please provide valid triangle length"
                 }).WithStatusCode(HttpStatusCode.BadRequest);
